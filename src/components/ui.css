@@ -1,0 +1,323 @@
+/* ── Button ──────────────────────────────────────────────────────────────
+   Pill-shaped, with a one-pixel press travel. The transition list is
+   explicit rather than `all`, so a repaint never animates something the
+   design did not intend to move. */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  background: none;
+  font-size: var(--t-sm);
+  font-weight: 600;
+  letter-spacing: -0.006em;
+  white-space: nowrap;
+  transition:
+    background var(--fast) var(--ease),
+    border-color var(--fast) var(--ease),
+    box-shadow var(--fast) var(--ease),
+    color var(--fast) var(--ease),
+    transform var(--fast) var(--ease-spring);
+}
+
+.btn--md {
+  height: 40px;
+  padding-inline: var(--s-5);
+}
+
+.btn--lg {
+  height: 50px;
+  padding-inline: var(--s-7);
+  font-size: var(--t-body);
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.btn--primary {
+  background: var(--saffron);
+  color: var(--ink);
+  box-shadow: var(--shadow-saffron);
+}
+
+.btn--primary:hover {
+  background: var(--saffron-hi);
+}
+
+.btn--primary:active {
+  background: var(--saffron-lo);
+}
+
+.btn--secondary {
+  border-color: var(--edge-hi);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--secondary:hover {
+  border-color: var(--edge-strong);
+  background: var(--surface-hi);
+}
+
+.btn--ghost {
+  color: var(--ink-mid);
+}
+
+.btn--ghost:hover {
+  background: var(--bone-sunk);
+  color: var(--ink);
+}
+
+.btn--inverse {
+  background: var(--on-dark);
+  color: var(--ink);
+}
+
+.btn--inverse:hover {
+  background: #fff;
+}
+
+/* ── Pill ────────────────────────────────────────────────────────────────*/
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  height: 28px;
+  padding-inline: var(--s-3);
+  border: 1px solid var(--edge);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  color: var(--ink-mid);
+}
+
+.pill--jade {
+  border-color: color-mix(in oklab, var(--jade) 22%, transparent);
+  background: var(--jade-wash);
+  color: var(--jade);
+}
+
+.pill--saffron {
+  border-color: color-mix(in oklab, var(--saffron) 32%, transparent);
+  background: var(--saffron-wash);
+  color: var(--saffron-lo);
+}
+
+.pill__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pill-breathe 2.4s var(--ease) infinite;
+}
+
+@keyframes pill-breathe {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* ── Chip ────────────────────────────────────────────────────────────────*/
+
+.chip {
+  height: 36px;
+  padding-inline: var(--s-4);
+  border: 1px solid var(--edge-hi);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  color: var(--ink-mid);
+  font-size: var(--t-sm);
+  font-weight: 500;
+  transition:
+    color var(--fast) var(--ease),
+    border-color var(--fast) var(--ease),
+    background var(--fast) var(--ease);
+}
+
+.chip:hover {
+  border-color: var(--edge-strong);
+  color: var(--ink);
+}
+
+.chip--on {
+  border-color: transparent;
+  background: var(--ink);
+  color: var(--on-dark);
+}
+
+/* ── Panel ───────────────────────────────────────────────────────────────*/
+
+.panel {
+  border: 1px solid var(--edge);
+  border-radius: var(--r-xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.panel--interactive {
+  transition:
+    box-shadow var(--mid) var(--ease),
+    border-color var(--mid) var(--ease),
+    transform var(--mid) var(--ease);
+}
+
+.panel--interactive:hover {
+  border-color: var(--edge-hi);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* ── Eyebrow ─────────────────────────────────────────────────────────────*/
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  color: var(--clay);
+}
+
+.eyebrow__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--saffron);
+}
+
+/* ── Price ───────────────────────────────────────────────────────────────*/
+
+.price {
+  font-size: var(--t-xs);
+  font-weight: 600;
+  color: var(--ink-mid);
+}
+
+.price--free {
+  color: var(--jade);
+}
+
+.price--unknown {
+  font-weight: 500;
+  color: var(--ink-low);
+  cursor: help;
+}
+
+/* ── When ────────────────────────────────────────────────────────────────*/
+
+.when {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+  font-size: var(--t-xs);
+  color: var(--ink-mid);
+}
+
+.when__now {
+  padding: 1px var(--s-2);
+  border-radius: var(--r-pill);
+  background: var(--jade-wash);
+  color: var(--jade);
+  font-size: var(--t-label);
+  font-weight: 600;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
+.when__day {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.when__span {
+  color: var(--ink-low);
+}
+
+/* An unpublished time is set in italic so it reads as a note rather than as
+   data — the one place italics appear in the system. */
+.when__time--none {
+  font-style: italic;
+  color: var(--ink-low);
+}
+
+/* ── Gap ─────────────────────────────────────────────────────────────────*/
+
+.gap {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-2);
+  font-size: var(--t-xs);
+  line-height: var(--lead-snug);
+  color: var(--ink-low);
+}
+
+.gap__mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 15px;
+  height: 15px;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: var(--bone-sunk);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ink-low);
+}
+
+/* ── KeyLine ─────────────────────────────────────────────────────────────*/
+
+.keyline {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr);
+  gap: var(--s-3);
+  padding-block: var(--s-2);
+  border-top: 1px solid var(--edge);
+}
+
+.keyline__k {
+  font-size: var(--t-label);
+  font-weight: 600;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-low);
+  padding-top: 2px;
+}
+
+.keyline__v {
+  margin: 0;
+  font-size: var(--t-xs);
+  line-height: var(--lead-snug);
+  color: var(--ink-mid);
+}
+
+.keyline__v--none {
+  font-style: italic;
+  color: var(--ink-ghost);
+}
+
+/* ── Stat ────────────────────────────────────────────────────────────────*/
+
+.stat__value {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: var(--track-h1);
+}
+
+.stat__caption {
+  margin-top: var(--s-1);
+  font-size: var(--t-sm);
+  color: var(--ink-mid);
+}

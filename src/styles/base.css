@@ -1,0 +1,195 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   SAHA — reset + element defaults. Component styles live beside their
+   components; this file only sets what every page inherits.
+   ────────────────────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  color-scheme: light;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + var(--nav-float) + var(--s-5));
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--bone);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--t-body);
+  line-height: var(--lead-body);
+  letter-spacing: var(--track-body);
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Times, dates, counts and prices are set tabular so they do not jitter as
+   they change — which is why the system needs no monospace face. Scoped to
+   data rather than applied to body, because prose reads better with
+   proportional figures. */
+.when,
+.price,
+.stat__value,
+.filters__count,
+.keyline__v,
+time {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Type defaults ────────────────────────────────────────────────────────*/
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+  line-height: var(--lead-tight);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--t-h1);
+  letter-spacing: var(--track-h1);
+}
+
+h2 {
+  font-size: var(--t-h2);
+  letter-spacing: var(--track-h2);
+}
+
+h3 {
+  font-size: var(--t-h3);
+  letter-spacing: var(--track-h2);
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--clay);
+  text-decoration-color: color-mix(in oklab, var(--clay) 30%, transparent);
+  text-underline-offset: 3px;
+  transition: color var(--fast) var(--ease);
+}
+
+a:hover {
+  color: var(--clay-hi);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+  border-radius: var(--r-xs);
+}
+
+::selection {
+  background: var(--saffron-wash);
+  color: var(--ink);
+}
+
+::placeholder {
+  color: var(--ink-ghost);
+}
+
+svg {
+  display: block;
+}
+
+/* ── Shared primitives ───────────────────────────────────────────────────*/
+
+/* The small-caps chrome label: section eyebrows, field labels, footer heads. */
+.label {
+  font-size: var(--t-label);
+  font-weight: 600;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-low);
+}
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.shell--narrow {
+  max-width: var(--shell-narrow);
+}
+
+/* Section rhythm. Every band on the page uses this, so vertical spacing is
+   consistent without each section inventing its own padding. */
+.band {
+  padding-block: var(--s-11);
+}
+
+.band--sunk {
+  background: var(--bone-sunk);
+}
+
+.band--tight {
+  padding-block: var(--s-10);
+}
+
+.rule {
+  height: 1px;
+  border: 0;
+  background: var(--edge);
+}
+
+.lede {
+  max-width: var(--measure);
+  font-size: 1.125rem;
+  line-height: var(--lead-snug);
+  color: var(--ink-mid);
+}
+
+/* Screen-reader-only, for the skip link and icon-button names. */
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

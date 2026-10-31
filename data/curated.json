@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Speed of Thought: AI Meetup",
+    "description": "WeMakeDevs brings AI builders and professionals together at 91Springboard, 21B Udyog Vihar, Sector 18, Gurugram for a day of learning, building and meeting people: a workshop on how Wispr Flow makes writing and working by voice feel natural, a tech talk on model quantization for efficient inference, then an open build phase with judging. Prizes for the best build and the best social post. Pizza and drinks provided.",
+    "date_start": "2026-10-31T09:00",
+    "date_end": "2026-10-31T15:00",
+    "venue": "91Springboard",
+    "address": "Udyog Vihar, Gurugram",
+    "city": "Gurugram",
+    "mode": "offline",
+    "theme": "hackathon",
+    "tags": [
+      "ai",
+      "wispr flow",
+      "anakin",
+      "wemakedevs",
+      "voice"
+    ],
+    "organizer": "WeMakeDevs",
+    "organizer_url": "https://luma.com/wemakedevs",
+    "event_url": "https://luma.com/sot?tk=1cKHGG",
+    "registration_url": "https://luma.com/sot?tk=1cKHGG",
+    "price": "Free — registration subject to host approval, capacity 100",
+    "platform": "Luma",
+    "scraped_at": "2026-10-31T13:30:00Z",
+    "lat": 28.4868089,
+    "lng": 77.0753955,
+    "data_gaps": "Ticket price not published; entry is by host approval."
+  }
+]

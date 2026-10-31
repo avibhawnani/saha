@@ -1,0 +1,183 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   SAHA — design tokens
+   सह (saha) — Sanskrit, "together, with".
+
+   POINT OF VIEW
+   Going out with people is a warm, daylight-confident act. Dark interfaces
+   read as tools; light ones read as places. So SAHA is a light product with a
+   bone ground, plum-brown ink, and exactly one action colour — saffron.
+   No black and no blue appear anywhere in this file, including inside
+   shadows and hairlines: every neutral is mixed from the ink, so the whole
+   surface stays on one warm temperature.
+
+   RULES
+   1. Never type a raw hex, radius or font stack in a component. Missing
+      value? Add it here first.
+   2. --saffron is the only fill that means "do this". One per view.
+   3. --jade means free or on now, --rose means ending. Nothing else may use
+      them, or those states stop being readable at a glance.
+   ────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Ground & surface ───────────────────────────────────────────────────
+     Bone, never pure white — paper has a temperature. --plum is the warm
+     dark used for the footer and inverted sections; it is a deep aubergine
+     brown, deliberately not a neutral black. */
+  --bone: #fbf7f1;
+  --bone-sunk: #f3ede3;
+  --surface: #fffdfa;
+  --surface-hi: #ffffff;
+  --plum: #2b1b23;
+  --plum-hi: #3c2733;
+
+  /* ── Ink ────────────────────────────────────────────────────────────────*/
+  --ink: #2a1c22;
+  --ink-mid: #6e5a62;
+  --ink-low: #9a868e;
+  --ink-ghost: #c3b3b8;
+  --on-dark: #fbf7f1;
+  --on-dark-mid: #c8b6bc;
+
+  /* ── Hairlines ──────────────────────────────────────────────────────────
+     Mixed from the ink at low alpha, so borders are warm, never grey. */
+  --edge: rgba(42, 28, 34, 0.09);
+  --edge-hi: rgba(42, 28, 34, 0.16);
+  --edge-strong: rgba(42, 28, 34, 0.28);
+  --edge-dark: rgba(251, 247, 241, 0.14);
+
+  /* ── Saffron — the action colour ────────────────────────────────────────
+     Marigold. Buttons take a saffron fill with INK text rather than white:
+     at 5.5:1 it is the accessible pairing, and it looks like a product
+     rather than a warning. */
+  --saffron: #e2821a;
+  --saffron-hi: #f0922b;
+  --saffron-lo: #c56c0c;
+  --saffron-wash: #fdf0de;
+
+  /* ── Clay — accent for text ─────────────────────────────────────────────
+     Saffron is too light to set type in. Links, "popular" markers and
+     emphasis use clay, which clears 6.6:1 on bone. */
+  --clay: #b5452c;
+  --clay-hi: #c75337;
+  --clay-wash: #fbe9e3;
+
+  /* ── Listing state — reserved, never decorative ─────────────────────────
+     --jade marks an event that is free to enter or on right now; --rose marks
+     one that is ending. Nothing else may use them, or the scan stops working. */
+  --jade: #1e7a5a;
+  --jade-wash: #e2f1ea;
+  --rose: #c2345a;
+  --rose-wash: #fce8ee;
+
+  /* ── Radius — generously soft ───────────────────────────────────────────
+     Large, even radii at every scale, so nested corners stay concentric
+     instead of fighting each other. */
+  --r-xs: 6px;
+  --r-sm: 9px;
+  --r-md: 13px;
+  --r-lg: 18px;
+  --r-xl: 26px;
+  --r-2xl: 34px;
+  --r-pill: 999px;
+
+  /* ── Space — 4px base ───────────────────────────────────────────────────*/
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-7: 32px;
+  --s-8: 44px;
+  --s-9: 64px;
+  --s-10: 88px;
+  --s-11: 120px;
+
+  --gutter: var(--s-6);
+  --measure: 62ch;
+  --shell: 1200px;
+  --shell-narrow: 760px;
+  --nav-h: 56px;
+
+  /* ── Type ───────────────────────────────────────────────────────────────
+     One family. Hierarchy comes from size, weight and tracking rather than
+     from mixing faces — which is why the numbers are set tabular instead of
+     switching to a mono. Body is 17px, the size Apple ships, because it is
+     genuinely the most comfortable default on a screen. */
+  /* Inter carries no Devanagari, and the name is written सह in the hero and
+     the footer. Font fallback resolves per glyph, so Noto picks up only the
+     Devanagari and Latin never leaves Inter. */
+  --font: "Inter", "Noto Sans Devanagari", ui-sans-serif, -apple-system,
+    BlinkMacSystemFont, system-ui, sans-serif;
+
+  --t-hero: clamp(2.625rem, 5.6vw, 4.25rem);
+  --t-h1: clamp(2rem, 3.4vw, 2.75rem);
+  --t-h2: 1.5rem;
+  --t-h3: 1.1875rem;
+  --t-body: 1.0625rem;
+  --t-sm: 0.9375rem;
+  --t-xs: 0.8125rem;
+  --t-label: 0.75rem;
+
+  --lead-hero: 1.02;
+  --lead-tight: 1.14;
+  --lead-snug: 1.34;
+  --lead-body: 1.6;
+
+  /* Optical tracking: the larger the type, the tighter it is set. */
+  --track-hero: -0.038em;
+  --track-h1: -0.028em;
+  --track-h2: -0.018em;
+  --track-body: -0.009em;
+  --track-label: 0.07em;
+
+  /* ── Elevation ──────────────────────────────────────────────────────────
+     Two-layer warm shadows — a tight contact shadow plus a wide ambient
+     one. Both are mixed from the ink, so nothing ever casts a grey shadow
+     onto warm paper. */
+  --shadow-sm:
+    0 1px 2px rgba(42, 28, 34, 0.05),
+    0 1px 1px rgba(42, 28, 34, 0.04);
+  --shadow-md:
+    0 2px 4px -1px rgba(42, 28, 34, 0.05),
+    0 8px 20px -4px rgba(42, 28, 34, 0.09);
+  --shadow-lg:
+    0 4px 8px -2px rgba(42, 28, 34, 0.06),
+    0 24px 48px -12px rgba(42, 28, 34, 0.16);
+  --shadow-xl:
+    0 8px 16px -6px rgba(42, 28, 34, 0.08),
+    0 44px 88px -24px rgba(42, 28, 34, 0.24);
+  --shadow-saffron: 0 8px 24px -8px rgba(226, 130, 26, 0.6);
+
+  /* ── Glass ──────────────────────────────────────────────────────────────
+     Glass only works when there is colour behind it to refract, which is why
+     the hero carries two large saffron/clay orbs — the fixed nav drifts over
+     them as you scroll and visibly picks their colour up.
+
+     On a warm light page the pane must be a warm white, never a grey or a
+     plain alpha-black scrim. Three layers make it read as glass rather than
+     as opacity: a translucent warm fill, a bright 1px rim, and an inner top
+     sheen standing in for the lit edge of a real pane. */
+  --glass: rgba(255, 252, 247, 0.58);
+  --glass-hi: rgba(255, 252, 247, 0.76);
+  --glass-rim: rgba(255, 255, 255, 0.72);
+  --glass-blur: blur(22px) saturate(190%);
+  --glass-sheen: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --glass-shadow:
+    0 1px 2px rgba(42, 28, 34, 0.04),
+    0 14px 36px -12px rgba(42, 28, 34, 0.22);
+
+  /* How far the floating nav sits off the top edge. */
+  --nav-float: var(--s-4);
+
+  /* ── Motion ─────────────────────────────────────────────────────────────
+     One ease for everything that enters, one springier ease for anything the
+     finger touches. Durations stay under a quarter second. */
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring: cubic-bezier(0.34, 1.46, 0.46, 1);
+  --fast: 140ms;
+  --mid: 240ms;
+  --slow: 480ms;
+
+  --focus: 0 0 0 2px var(--bone), 0 0 0 4px var(--clay);
+}

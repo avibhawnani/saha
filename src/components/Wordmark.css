@@ -1,0 +1,24 @@
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  color: var(--ink);
+}
+
+.wordmark--inverse {
+  color: var(--on-dark);
+}
+
+.wordmark__mark {
+  width: 25px;
+  height: 23px;
+  flex: none;
+}
+
+/* The name is four letters, so it can be set tight and heavy without
+   crowding. Lowercase keeps it conversational rather than corporate. */
+.wordmark__text {
+  font-size: 1.3125rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}

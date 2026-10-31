@@ -1,0 +1,115 @@
+.tonight {
+  padding: var(--s-5);
+  border: 1px solid var(--edge);
+  border-radius: var(--r-2xl);
+  background: var(--surface);
+  box-shadow: var(--glass-sheen), var(--shadow-xl);
+}
+
+.tonight__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding: 0 var(--s-2) var(--s-4);
+}
+
+.tonight__head-count {
+  margin-top: var(--s-1);
+  font-size: var(--t-h2);
+  font-weight: 600;
+  letter-spacing: var(--track-h2);
+}
+
+.tonight__list {
+  display: grid;
+  gap: var(--s-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ── Row ─────────────────────────────────────────────────────────────────*/
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-3);
+  border-radius: var(--r-lg);
+  transition: background var(--fast) var(--ease);
+}
+
+.row:hover {
+  background: var(--bone);
+}
+
+/* Anything on right now gets the saffron wash — scarce enough that the eye
+   lands on it first without needing a badge. */
+.row--on {
+  background: var(--saffron-wash);
+}
+
+.row--on:hover {
+  background: color-mix(in oklab, var(--saffron-wash) 82%, var(--saffron));
+}
+
+.row__body {
+  min-width: 0;
+}
+
+.row__title {
+  font-size: var(--t-sm);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row__body .when {
+  margin-top: 3px;
+}
+
+.row__right {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+  text-align: right;
+}
+
+.row__where {
+  font-size: var(--t-xs);
+  font-weight: 500;
+  color: var(--ink-mid);
+  white-space: nowrap;
+}
+
+.tonight__foot {
+  margin-top: var(--s-4);
+  padding: var(--s-4) var(--s-2) 0;
+  border-top: 1px solid var(--edge);
+  font-size: var(--t-xs);
+  color: var(--ink-low);
+}
+
+.tonight__head-of {
+  font-weight: 400;
+  font-size: var(--t-sm);
+  color: var(--ink-low);
+}
+
+@media (max-width: 480px) {
+  .row {
+    grid-template-columns: 1fr;
+    row-gap: var(--s-2);
+  }
+
+  .row__right {
+    justify-items: start;
+    grid-auto-flow: column;
+    align-items: center;
+    gap: var(--s-3);
+    text-align: left;
+  }
+}

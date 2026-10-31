@@ -1,0 +1,150 @@
+{
+  "EV-01": {
+    "lat": 28.551953,
+    "lng": 77.0426762,
+    "matched": "Yashobhoomi, Dhoolsiras Road, Najafgarh, Delhi, South West Delhi, Delhi, 110061, India",
+    "precision": "venue",
+    "query": "Yashobhoomi Convention Centre, Dwarka, Delhi"
+  },
+  "EV-02": {
+    "lat": 28.6138954,
+    "lng": 77.2090057,
+    "matched": "New Delhi, Delhi, India",
+    "precision": "city",
+    "query": "New Delhi"
+  },
+  "EV-03": {
+    "lat": 28.5475971,
+    "lng": 77.2013448,
+    "matched": "Haveli Hauz Khas, P5, Aurobindo Marg, Hauz Khas Enclave, Hauz Khas, South, New Delhi, South Delhi, Delhi, 110016, India",
+    "precision": "area",
+    "query": "Hauz Khas, New Delhi"
+  },
+  "EV-04": {
+    "lat": 28.6328027,
+    "lng": 77.2197713,
+    "matched": "Delhi, India",
+    "precision": "city",
+    "query": "Delhi"
+  },
+  "EV-05": {
+    "lat": 28.5415061,
+    "lng": 77.2432977,
+    "matched": "Hotel Mayur C R Park New Delhi, A 68, Bipinchandra Pal Marg, Chittaranjan Park, South, New Delhi, South Delhi, Delhi, 110019, India",
+    "precision": "area",
+    "query": "Chittaranjan Park, New Delhi"
+  },
+  "EV-06": {
+    "lat": 28.711161,
+    "lng": 77.1355317,
+    "matched": "Prashant Vihar A Block, Rohini, Delhi, North West Delhi, Delhi, India",
+    "precision": "area",
+    "query": "Prashant Vihar, Delhi"
+  },
+  "EV-07": {
+    "lat": 28.6138954,
+    "lng": 77.2090057,
+    "matched": "New Delhi, Delhi, India",
+    "precision": "city",
+    "query": "New Delhi"
+  },
+  "EV-08": {
+    "lat": 28.546326,
+    "lng": 77.2732571,
+    "matched": "IIIT-Delhi, Govindpuri, Okhla, Central, New Delhi, South East Delhi, Delhi, 110020, India",
+    "precision": "venue",
+    "query": "IIIT Delhi, New Delhi"
+  },
+  "EV-09": {
+    "precision": "none",
+    "reason": "online event, no location"
+  },
+  "EV-10": {
+    "precision": "none",
+    "reason": "online event, no location"
+  },
+  "SC-90c83386": {
+    "lat": 28.5833771,
+    "lng": 77.2335404,
+    "matched": "Jawaharlal Nehru Stadium, Jawaharlal Nehru Stadium Marg, CGO Complex, Central, Delhi, South East Delhi, Delhi, 110003, India",
+    "precision": "venue",
+    "query": "Jawaharlal Nehru Stadium, Jawaharlal Nehru Stadium, Delhi"
+  },
+  "SC-6024a104": {
+    "lat": 28.6328027,
+    "lng": 77.2197713,
+    "matched": "Delhi, India",
+    "precision": "city",
+    "query": "Delhi"
+  },
+  "SC-8e879dcb": {
+    "lat": 28.6328027,
+    "lng": 77.2197713,
+    "matched": "Delhi, India",
+    "precision": "city",
+    "query": "Delhi"
+  },
+  "SC-2552b007": {
+    "lat": 28.6328027,
+    "lng": 77.2197713,
+    "matched": "Delhi, India",
+    "precision": "city",
+    "query": "Delhi"
+  },
+  "SC-50dbaf54": {
+    "lat": 28.6328027,
+    "lng": 77.2197713,
+    "matched": "Delhi, India",
+    "precision": "city",
+    "query": "Delhi"
+  },
+  "SC-ac87e7b4": {
+    "lat": 28.6328027,
+    "lng": 77.2197713,
+    "matched": "Delhi, India",
+    "precision": "city",
+    "query": "Delhi"
+  },
+  "SC-72383619": {
+    "lat": 28.6328027,
+    "lng": 77.2197713,
+    "matched": "Delhi, India",
+    "precision": "city",
+    "query": "Delhi"
+  },
+  "SC-66bcd46b": {
+    "lat": 28.6328027,
+    "lng": 77.2197713,
+    "matched": "Delhi, India",
+    "precision": "city",
+    "query": "Delhi"
+  },
+  "SC-1f719f50": {
+    "lat": 28.6328027,
+    "lng": 77.2197713,
+    "matched": "Delhi, India",
+    "precision": "city",
+    "query": "Delhi"
+  },
+  "SC-85ccdc94": {
+    "lat": 28.6328027,
+    "lng": 77.2197713,
+    "matched": "Delhi, India",
+    "precision": "city",
+    "query": "Delhi"
+  },
+  "SC-35e60dcc": {
+    "lat": 28.6328027,
+    "lng": 77.2197713,
+    "matched": "Delhi, India",
+    "precision": "city",
+    "query": "Delhi"
+  },
+  "SC-baa13bec": {
+    "lat": 28.4868089,
+    "lng": 77.0753955,
+    "precision": "venue",
+    "matched": "91Springboard (coordinates published by the source)",
+    "query": "none - supplied"
+  }
+}

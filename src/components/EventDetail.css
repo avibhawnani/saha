@@ -1,0 +1,201 @@
+.detail {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--nav-float) + var(--s-4));
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  max-height: calc(100dvh - var(--nav-h) - var(--nav-float) - var(--s-8));
+  overflow-y: auto;
+  padding: var(--s-5);
+  border: 1px solid var(--edge);
+  border-radius: var(--r-xl);
+  background: var(--surface);
+  box-shadow: var(--glass-sheen), var(--shadow-md);
+}
+
+.detail__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.detail__cat {
+  padding: 2px var(--s-2);
+  border-radius: var(--r-xs);
+  background: var(--clay-wash);
+  color: var(--clay);
+  font-size: var(--t-label);
+  font-weight: 600;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
+.detail__close {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--edge);
+  border-radius: 50%;
+  background: var(--surface);
+  font-size: 17px;
+  line-height: 1;
+  color: var(--ink-mid);
+  transition:
+    background var(--fast) var(--ease),
+    color var(--fast) var(--ease);
+}
+
+.detail__close:hover {
+  background: var(--bone-sunk);
+  color: var(--ink);
+}
+
+.detail__title {
+  font-size: var(--t-h2);
+  letter-spacing: var(--track-h2);
+}
+
+.detail__desc {
+  font-size: var(--t-sm);
+  line-height: var(--lead-body);
+  color: var(--ink-mid);
+}
+
+.detail__facts {
+  margin: var(--s-2) 0 0;
+}
+
+/* Where the pin is, and what it means — never left to be inferred. */
+.detail__precision {
+  padding: var(--s-3);
+  border-radius: var(--r-md);
+  background: var(--bone-sunk);
+  font-size: var(--t-xs);
+  line-height: var(--lead-snug);
+  color: var(--ink-mid);
+}
+
+.detail__matched {
+  display: block;
+  margin-top: 2px;
+  color: var(--ink-low);
+}
+
+.detail__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--edge);
+}
+
+.detail__link {
+  font-size: var(--t-xs);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.detail__nolink {
+  font-size: var(--t-xs);
+  font-style: italic;
+  color: var(--ink-ghost);
+}
+
+/* ── Ask the web ─────────────────────────────────────────────────────────*/
+
+.web {
+  margin-top: var(--s-2);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--edge);
+}
+
+.web__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.web__title {
+  font-size: var(--t-sm);
+  font-weight: 600;
+}
+
+.web__hint {
+  margin-top: var(--s-2);
+  font-size: var(--t-xs);
+  line-height: var(--lead-snug);
+  color: var(--ink-low);
+}
+
+.web__hint code {
+  padding: 1px 4px;
+  border-radius: var(--r-xs);
+  background: var(--bone-sunk);
+  font-size: 11px;
+}
+
+.web__error {
+  margin-top: var(--s-3);
+  padding: var(--s-3);
+  border-radius: var(--r-md);
+  background: var(--rose-wash);
+  font-size: var(--t-xs);
+  color: var(--rose);
+}
+
+.web__error .web__hint {
+  color: color-mix(in oklab, var(--rose) 72%, var(--ink));
+}
+
+.web__list {
+  display: grid;
+  gap: var(--s-2);
+  margin: var(--s-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.web__item {
+  display: grid;
+  gap: 2px;
+  padding: var(--s-3);
+  border: 1px solid var(--edge);
+  border-radius: var(--r-md);
+  background: var(--bone);
+  text-decoration: none;
+  transition:
+    border-color var(--fast) var(--ease),
+    background var(--fast) var(--ease);
+}
+
+.web__item:hover {
+  border-color: var(--edge-hi);
+  background: var(--surface);
+}
+
+.web__item-title {
+  font-size: var(--t-xs);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.web__item-snippet {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  font-size: var(--t-xs);
+  line-height: var(--lead-snug);
+  color: var(--ink-mid);
+}
+
+.web__item-host {
+  margin-top: 2px;
+  font-size: var(--t-label);
+  color: var(--ink-low);
+}

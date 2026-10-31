@@ -1,0 +1,516 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   The on-page demo. Replaces a written explanation with the thing itself:
+   a narration rail on the left saying what is happening, and a fixed-height
+   screen on the right showing it. Fixed height matters — advancing a stage
+   must never shift the page under the reader.
+   ────────────────────────────────────────────────────────────────────────── */
+
+.demo__head {
+  max-width: 44ch;
+  margin-bottom: var(--s-8);
+}
+
+.demo__title {
+  margin-top: var(--s-3);
+  font-size: var(--t-h1);
+  letter-spacing: var(--track-h1);
+}
+
+.demo__sub {
+  margin-top: var(--s-4);
+}
+
+.demo__body {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: var(--s-8);
+  align-items: start;
+}
+
+/* ── Narration rail ──────────────────────────────────────────────────────*/
+
+.rail {
+  display: grid;
+  gap: var(--s-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rail__item {
+  position: relative;
+  border-radius: var(--r-lg);
+  transition: background var(--mid) var(--ease);
+}
+
+.rail__item--on {
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.rail__btn {
+  display: flex;
+  gap: var(--s-4);
+  width: 100%;
+  padding: var(--s-4);
+  border: 0;
+  border-radius: var(--r-lg);
+  background: none;
+  text-align: left;
+}
+
+.rail__n {
+  flex: none;
+  padding-top: 1px;
+  font-size: var(--t-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  color: var(--ink-ghost);
+  transition: color var(--mid) var(--ease);
+}
+
+.rail__item--on .rail__n {
+  color: var(--clay);
+}
+
+.rail__text {
+  display: grid;
+  gap: 2px;
+}
+
+.rail__label {
+  font-size: var(--t-body);
+  font-weight: 600;
+  color: var(--ink-low);
+  transition: color var(--mid) var(--ease);
+}
+
+.rail__item--on .rail__label {
+  color: var(--ink);
+}
+
+/* The note only matters for the step you are on, so it is dimmed elsewhere
+   rather than hidden — collapsing it would make the rail jump. */
+.rail__note {
+  font-size: var(--t-sm);
+  line-height: var(--lead-snug);
+  color: var(--ink-ghost);
+  transition: color var(--mid) var(--ease);
+}
+
+.rail__item--on .rail__note {
+  color: var(--ink-mid);
+}
+
+/* Progress hairline along the bottom of the active step, timed to its own
+   stage duration via an inline animation-duration. */
+.rail__tick {
+  position: absolute;
+  left: var(--s-4);
+  right: var(--s-4);
+  bottom: 0;
+  height: 2px;
+  border-radius: var(--r-pill);
+  background: var(--saffron);
+  transform-origin: left;
+  animation: tick linear forwards;
+}
+
+@keyframes tick {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ── Screen ──────────────────────────────────────────────────────────────*/
+
+.screen {
+  border: 1px solid var(--edge);
+  border-radius: var(--r-2xl);
+  background: var(--surface);
+  box-shadow: var(--glass-sheen), var(--shadow-lg);
+  overflow: hidden;
+}
+
+.screen__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-3) var(--s-5);
+  border-bottom: 1px solid var(--edge);
+  background: var(--bone);
+}
+
+.screen__dots {
+  display: flex;
+  gap: 5px;
+}
+
+.screen__dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--edge-hi);
+}
+
+.screen__url {
+  font-size: var(--t-xs);
+  color: var(--ink-low);
+}
+
+.screen__stage {
+  display: grid;
+  place-items: center;
+  min-height: 310px;
+  padding: var(--s-6);
+}
+
+/* ── Stage 0 · say ───────────────────────────────────────────────────────*/
+
+.say {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-5);
+  text-align: center;
+}
+
+.say__mic {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--saffron-wash);
+  box-shadow: 0 0 0 0 rgba(226, 130, 26, 0.5);
+  animation: mic-ping 1.6s var(--ease) infinite;
+}
+
+@keyframes mic-ping {
+  70%,
+  100% {
+    box-shadow: 0 0 0 18px rgba(226, 130, 26, 0);
+  }
+}
+
+.say__text {
+  max-width: 30ch;
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: var(--lead-snug);
+  letter-spacing: -0.016em;
+}
+
+.say__caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.16em;
+  background: var(--saffron);
+  animation: caret 1s steps(2) infinite;
+}
+
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.say__hint {
+  font-size: var(--t-xs);
+  color: var(--ink-low);
+}
+
+/* ── Stage 1 · sweep ─────────────────────────────────────────────────────*/
+
+.sweep {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-6);
+  width: 100%;
+}
+
+.sweep__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-2);
+  max-width: 460px;
+}
+
+/* Each source lights in turn — the delay is set inline so the order reads as
+   a sweep rather than a flash. */
+.sweep__chip {
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--edge);
+  border-radius: var(--r-pill);
+  background: var(--bone);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  color: var(--ink-low);
+  opacity: 0;
+  animation: chip-in 420ms var(--ease) forwards;
+}
+
+@keyframes chip-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  60% {
+    border-color: var(--saffron);
+    background: var(--saffron-wash);
+    color: var(--saffron-lo);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.sweep__count {
+  font-size: var(--t-sm);
+  color: var(--ink-mid);
+  opacity: 0;
+  animation: fade-in 500ms var(--ease) 900ms forwards;
+}
+
+.sweep__count strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Stage 2 · narrow ────────────────────────────────────────────────────*/
+
+.narrow {
+  display: grid;
+  gap: var(--s-2);
+  width: 100%;
+  max-width: 480px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.narrow__row {
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--edge);
+  border-radius: var(--r-lg);
+  background: var(--bone);
+  opacity: 0;
+  animation: row-in 460ms var(--ease) forwards;
+}
+
+@keyframes row-in {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.narrow__when {
+  font-size: var(--t-sm);
+  font-weight: 600;
+}
+
+.narrow__body {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.narrow__title {
+  font-size: var(--t-sm);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.narrow__place {
+  font-size: var(--t-xs);
+  color: var(--ink-mid);
+}
+
+.narrow__price {
+  font-size: var(--t-xs);
+  font-weight: 600;
+  color: var(--jade);
+}
+
+/* ── Stage 3 · sit ───────────────────────────────────────────────────────*/
+
+.sit {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-4);
+  width: 100%;
+}
+
+.sit__card {
+  width: 100%;
+  max-width: 400px;
+  padding: var(--s-5);
+  border: 1px solid var(--edge-hi);
+  border-radius: var(--r-xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+  animation: card-in 520ms var(--ease-spring) forwards;
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.sit__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.sit__when {
+  font-size: var(--t-sm);
+  font-weight: 600;
+}
+
+.sit__title {
+  margin-top: var(--s-3);
+  font-size: var(--t-h3);
+  font-weight: 600;
+  letter-spacing: var(--track-h2);
+}
+
+.sit__place {
+  margin-top: 2px;
+  margin-bottom: var(--s-3);
+  font-size: var(--t-sm);
+  color: var(--ink-mid);
+}
+
+.sit__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-top: var(--s-5);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--edge);
+}
+
+.sit__src {
+  font-size: var(--t-xs);
+  font-weight: 500;
+  color: var(--ink-low);
+}
+
+.sit__open {
+  font-size: var(--t-xs);
+  font-weight: 600;
+  color: var(--clay);
+}
+
+.sit__note {
+  font-size: var(--t-xs);
+  color: var(--ink-low);
+}
+
+/* ── Foot ────────────────────────────────────────────────────────────────*/
+
+.demo__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  margin-top: var(--s-6);
+}
+
+.demo__pips {
+  display: flex;
+  gap: var(--s-2);
+}
+
+.pip {
+  width: 26px;
+  height: 4px;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--edge-hi);
+  transition: background var(--mid) var(--ease);
+}
+
+.pip:hover {
+  background: var(--edge-strong);
+}
+
+.pip--on {
+  background: var(--saffron);
+}
+
+.demo__replay {
+  margin-left: auto;
+  border: 0;
+  background: none;
+  font-size: var(--t-sm);
+  font-weight: 600;
+  color: var(--clay);
+}
+
+.demo__replay:hover {
+  color: var(--clay-hi);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────*/
+
+@media (max-width: 920px) {
+  .demo__body {
+    grid-template-columns: 1fr;
+    gap: var(--s-6);
+  }
+
+  /* On a phone the rail becomes a caption for the step you are on — four
+     stacked blocks of prose above a screen would bury the demo. */
+  .rail__item:not(.rail__item--on) .rail__note {
+    display: none;
+  }
+
+  .screen__stage {
+    min-height: 280px;
+    padding: var(--s-5);
+  }
+}
+
+@media (max-width: 480px) {
+  .narrow__row {
+    grid-template-columns: 54px minmax(0, 1fr);
+  }
+
+  .narrow__price {
+    grid-column: 2;
+  }
+
+  .say__text {
+    font-size: 1.1875rem;
+  }
+}
