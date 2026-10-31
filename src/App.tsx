@@ -30,6 +30,7 @@ export default function App() {
   const [query, setQuery] = useState<Query | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [mapError, setMapError] = useState<string | null>(null);
+  const [heroDismissed, setHeroDismissed] = useState(false);
   const today = todayISO();
 
   const { shown, dropped } = useMemo(() => {
@@ -52,23 +53,34 @@ export default function App() {
     return { shown: EVENTS.filter(chip).sort(byStartSoonest), dropped: [] as string[] };
   }, [filter, query, today]);
 
+  /* Top match for the hero panel. Null when nothing is being searched, when
+     nothing matched, or once the reader has closed it. */
+  const heroPick = query !== null && !heroDismissed && shown.length > 0 ? shown[0] : null;
+
   const pinned = shown.filter((e) => isPinnable(e.id));
   const offMap = shown.filter((e) => !isPinnable(e.id));
   const selected = shown.find((e) => e.id === selectedId) ?? null;
   const understood = query ? describe(query) : [];
 
-  /* A spoken sentence replaces the chip filter rather than stacking with it —
-     two competing filters silently returning nothing is the worst outcome. */
+  /**
+   * A spoken sentence replaces the chip filter rather than stacking with it —
+   * two competing filters silently returning nothing is the worst outcome.
+   *
+   * Deliberately does NOT scroll. Search now runs while dictation is still
+   * arriving, and moving the page mid-sentence pulls the field out from under
+   * the speaker. The top match appears beside the field instead.
+   */
   const onAsk = (utterance: string) => {
     setQuery(parse(utterance, EVENTS));
     setFilter("All");
     setSelectedId(null);
-    document.getElementById("map")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setHeroDismissed(false);
   };
 
   const clearQuery = () => {
     setQuery(null);
     setSelectedId(null);
+    setHeroDismissed(false);
   };
 
   return (
@@ -101,7 +113,11 @@ export default function App() {
               </p>
 
               <div className="hero__ask">
-                <AskBar onAsk={onAsk} />
+                <AskBar
+                  onAsk={onAsk}
+                  onClear={clearQuery}
+                  resultCount={query === null ? null : shown.length}
+                />
               </div>
 
               <div className="hero__cities">
@@ -124,8 +140,20 @@ export default function App() {
               </p>
             </div>
 
+            {/* Right-hand panel: while a search is running it shows the top
+                match, so talking produces an answer in place. Derived from
+                the query rather than assigned in an effect. */}
             <div className="hero__preview">
-              <Tonight />
+              {heroPick ? (
+                <EventDetail
+                  key={heroPick.id}
+                  event={heroPick}
+                  today={today}
+                  onClose={() => setHeroDismissed(true)}
+                />
+              ) : (
+                <Tonight />
+              )}
             </div>
           </div>
         </section>

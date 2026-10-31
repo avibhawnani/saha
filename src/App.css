@@ -173,6 +173,13 @@
   }
 }
 
+/* EventDetail sticks inside the map's side column; in the hero it is just a
+   panel, so the sticky positioning is switched off here. */
+.hero__preview .detail {
+  position: static;
+  max-height: none;
+}
+
 .hero__source {
   margin-top: var(--s-6);
   font-size: var(--t-sm);

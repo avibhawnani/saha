@@ -39,6 +39,7 @@
     color var(--mid) var(--ease);
 }
 
+.ask--pending .ask__mic,
 .ask--heard .ask__mic {
   background: var(--jade-wash);
   color: var(--jade);
@@ -95,9 +96,6 @@
 }
 
 .ask__hint {
-  display: flex;
-  align-items: center;
-  gap: 0.5ch;
   font-size: var(--t-xs);
   color: var(--ink-low);
 }
@@ -113,35 +111,18 @@
   color: var(--ink-mid);
 }
 
-.ask__go {
+.ask__reset {
   margin-left: auto;
-  height: 38px;
-  padding-inline: var(--s-5);
+  flex: none;
   border: 0;
-  border-radius: var(--r-pill);
-  background: var(--saffron);
-  color: var(--ink);
-  font-size: var(--t-sm);
+  background: none;
+  font-size: var(--t-xs);
   font-weight: 600;
-  box-shadow: var(--shadow-saffron);
-  transition:
-    background var(--fast) var(--ease),
-    transform var(--fast) var(--ease-spring);
+  color: var(--clay);
 }
 
-.ask__go:hover:not(:disabled) {
-  background: var(--saffron-hi);
-}
-
-.ask__go:active:not(:disabled) {
-  transform: translateY(1px) scale(0.99);
-}
-
-.ask__go:disabled {
-  background: var(--bone-sunk);
-  color: var(--ink-ghost);
-  box-shadow: none;
-  cursor: not-allowed;
+.ask__reset:hover {
+  color: var(--clay-hi);
 }
 
 @media (max-width: 520px) {
