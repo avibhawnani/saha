@@ -13,7 +13,16 @@ import { todayISO } from "../src/lib/date.ts";
 
 const today = todayISO();
 
+/** Nonsense must come back empty rather than returning the whole dataset. */
+const EXPECT_EMPTY = new Set(["zorbing"]);
+
 const UTTERANCES = [
+  "AI events",
+  "zorbing",
+  "ai meetup",
+  "wispr flow",
+  "hackathon in gurugram",
+  "beer",
   /* The AskBar placeholder and the Demo's phrase — these two must never be empty. */
   "anything on tonight under ₹500, nothing too loud",
   "somewhere quiet in Hauz Khas tonight, nothing with a cover charge",
@@ -40,8 +49,16 @@ for (const u of UTTERANCES) {
   const q = parse(u, EVENTS);
   const { events: hits, dropped } = resolveQuery(q, EVENTS, today);
   const tags = describe(q);
-  const flag = hits.length === 0 ? "  ✗ ZERO RESULTS" : "";
-  if (hits.length === 0) broken += 1;
+  const wantEmpty = EXPECT_EMPTY.has(u);
+  const bad = wantEmpty ? hits.length > 0 : hits.length === 0;
+  const flag = bad
+    ? wantEmpty
+      ? "  ✗ SHOULD BE EMPTY"
+      : "  ✗ ZERO RESULTS"
+    : wantEmpty
+      ? "  ✓ correctly empty"
+      : "";
+  if (bad) broken += 1;
   console.log(`"${u}"`);
   console.log(`   understood: [${tags.join(", ") || "nothing"}]`);
   console.log(`   matches: ${hits.length}${flag}${dropped.length ? `  (relaxed: ${dropped.join(", ")})` : ""}`);
@@ -51,7 +68,7 @@ for (const u of UTTERANCES) {
   console.log("");
 }
 
-console.log(`${UTTERANCES.length - broken}/${UTTERANCES.length} utterances returned something.`);
+console.log(`${UTTERANCES.length - broken}/${UTTERANCES.length} utterances behaved correctly.`);
 
 /* Which categories can a spoken sentence actually reach? */
 console.log("\nreachability by category:");

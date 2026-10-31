@@ -40,8 +40,10 @@ export default function App() {
     };
 
     if (query !== null) {
+      /* resolveQuery already ranks by relevance; re-sorting by date here would
+         throw that away and put a random event at the top of a search. */
       const r = resolveQuery(query, EVENTS, today);
-      return { shown: [...r.events].sort(byStartSoonest), dropped: r.dropped };
+      return { shown: r.events, dropped: r.dropped };
     }
 
     const chip = (e: SahaEvent) => {
