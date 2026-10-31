@@ -7,7 +7,12 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "scrape:setup": "python3 -m venv scraper/.venv && scraper/.venv/bin/python -m pip install -q -r scraper/requirements.txt",
+    "scrape": "cd scraper && ./.venv/bin/python scraper.py",
+    "data:mine": "node scripts/mine-descriptions.mjs",
+    "data": "node scripts/normalize-events.mjs data/delhi-events-database.json data/mined-events.json data/curated.json && node scripts/geocode.mjs",
+    "check:ask": "node scripts/run-ts.mjs scripts/check-ask.ts"
   },
   "dependencies": {
     "maplibre-gl": "^6.16.0",

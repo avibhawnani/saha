@@ -26,6 +26,11 @@ npm run dev
 | `npm run dev` | Dev server, including the Anakin proxy |
 | `npm run build` | `tsc -b && vite build` |
 | `npm run lint` | oxlint |
+| `npm run scrape:setup` | Create `scraper/.venv` and install Python deps |
+| `npm run scrape` | Run the Python scraper (pass `-- --dry-run` first) |
+| `npm run data:mine` | Mine real events out of scraper output |
+| `npm run data` | Normalize all sources, then geocode |
+| `npm run check:ask` | Exercise spoken search against the real dataset |
 
 Stack: **Vite 8 · React 19 · TypeScript 7 · MapLibre GL JS 6 · oxlint**.
 
@@ -76,14 +81,48 @@ tool but takes 1–5 minutes, which is unusable behind a click.
 
 ---
 
+## The scraper
+
+`scraper/` is a Python collector built on **Anakin's URL Scraper API**. It
+submits each of 21 platform URLs as a scrape job, polls with back-off, asks
+Anakin to extract structured events, and filters to Delhi NCR plus online for
+today and the coming week. Platforms include WeMakeDevs, Devfolio, Unstop,
+Lu.ma, Meetup, AllEvents, 10times, Insider, BookMyShow and Eventbrite.
+
+```bash
+npm run scrape:setup                      # create scraper/.venv, install deps
+cp scraper/.env.example scraper/.env      # paste your Anakin key
+npm run scrape -- --dry-run               # list targets, no API calls
+npm run scrape -- --platforms "Lu.ma"     # a couple of targets, few credits
+npm run scrape                            # all 21 targets
+```
+
+Output lands in `scraper/output/events_YYYY-MM-DD.json` (and `.csv`), both
+gitignored. **A full run costs credits on every target** — start with
+`--dry-run`, then a `--platforms` subset.
+
+Two fixes were applied to it on the way in:
+
+- `--platforms` matched the **full target name exactly**, so `--platforms
+  "Lu.ma"` selected zero targets and exited with no explanation (real names
+  carry suffixes like `Lu.ma – Delhi`). It now substring-matches and, on no
+  match, prints every available target name.
+- `models/event.py` used `datetime.utcnow()` — deprecated since Python 3.12,
+  and it returns a *naive* datetime, so the appended `"Z"` was claiming UTC
+  without being UTC-aware. Now `datetime.now(timezone.utc)`.
+
+See [`scraper/README.md`](scraper/README.md) for its own CLI reference.
+
+---
+
 ## Data pipeline
 
 Events arrive from three different shapes and collapse into one contract, so the
 app never learns which pipeline produced its data.
 
 ```
- event_scraper (Python, Anakin URL Scraper)
-         │  output/events_YYYY-MM-DD.json
+ scraper/  (Python, Anakin URL Scraper)
+         │  scraper/output/events_YYYY-MM-DD.json
          ▼
  scripts/mine-descriptions.mjs      ← recovers real events from page prose
          │  data/mined-events.json
@@ -101,10 +140,9 @@ app never learns which pipeline produced its data.
 Regenerate everything:
 
 ```bash
-node scripts/mine-descriptions.mjs <scraped.json> data/mined-events.json
-node scripts/normalize-events.mjs data/delhi-events-database.json \
-     data/mined-events.json data/curated.json
-node scripts/geocode.mjs
+npm run data:mine -- scraper/output/events_2026-10-31.json data/mined-events.json
+npm run data           # normalize all three sources, then geocode
+npm run check:ask      # verify spoken search still returns results
 ```
 
 `src/data/events.ts` and `src/data/coords.json` are **generated and committed**
@@ -241,6 +279,7 @@ src/
   data/         GENERATED — events.ts, coords.json
   styles/       tokens.css, base.css
 scripts/        pipeline + checks (see Data pipeline)
+scraper/        Python collector on Anakin's URL Scraper API
 data/           committed source data
 ```
 

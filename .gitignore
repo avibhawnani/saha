@@ -26,3 +26,10 @@ dist-ssr
 # local secrets
 .env
 .env.local
+
+# Python scraper
+scraper/.venv/
+scraper/.env
+scraper/output/
+__pycache__/
+*.py[cod]
