@@ -336,46 +336,6 @@
   color: var(--clay-hi);
 }
 
-/* ── Off the map ─────────────────────────────────────────────────────────
-   Events the data cannot honestly place. Listing them is the point: a map
-   that silently drops a third of the dataset is worse than one that says so. */
-
-.offmap {
-  padding: var(--s-5);
-}
-
-.offmap__hint {
-  margin-top: var(--s-2);
-  font-size: var(--t-xs);
-  line-height: var(--lead-snug);
-  color: var(--ink-low);
-}
-
-.offmap__list {
-  display: grid;
-  gap: var(--s-2);
-  margin: var(--s-4) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.offmap__row {
-  padding: var(--s-3);
-  border-radius: var(--r-md);
-  background: var(--bone-sunk);
-}
-
-.offmap__title {
-  font-size: var(--t-xs);
-  font-weight: 600;
-}
-
-.offmap__why {
-  margin-top: 1px;
-  font-size: var(--t-label);
-  color: var(--ink-low);
-}
-
 @media (max-width: 960px) {
   .mapgrid {
     grid-template-columns: 1fr;
@@ -412,13 +372,25 @@
   font-size: 11px;
 }
 
-.offmap__empty {
-  margin-top: var(--s-4);
-  padding: var(--s-4);
+.maploading {
+  height: clamp(420px, 56vh, 620px);
+}
+
+.mapwarn {
+  margin-bottom: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid color-mix(in oklab, var(--caution) 36%, transparent);
   border-radius: var(--r-md);
-  background: var(--bone-sunk);
-  font-size: var(--t-sm);
-  color: var(--ink-mid);
+  background: color-mix(in oklab, var(--caution) 12%, var(--bone));
+  font-size: var(--t-xs);
+  color: var(--ink);
+}
+
+.mapwarn code {
+  padding: 1px 4px;
+  border-radius: var(--r-xs);
+  background: var(--surface);
+  font-size: 11px;
 }
 
 .maploading {

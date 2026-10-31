@@ -8,10 +8,11 @@ import { Demo } from "./components/Demo";
    the map section is reached — so it is split out and loaded on demand. */
 const MapView = lazy(() => import("./components/MapView"));
 import { EventDetail } from "./components/EventDetail";
+import { ResultsPanel } from "./components/ResultsPanel";
 import { MapBoundary } from "./components/MapBoundary";
-import { Chip, Eyebrow, Panel, Pill, Stat } from "./components/ui";
+import { Chip, Eyebrow, Pill, Stat } from "./components/ui";
 import { CATEGORIES, DATASET, EVENTS, isOn, type SahaEvent } from "./data/events";
-import { isPinnable, offMapReason } from "./lib/coords";
+import { isPinnable } from "./lib/coords";
 import { describe, parse, resolveQuery, type Query } from "./lib/ask";
 import { todayISO } from "./lib/date";
 import "./App.css";
@@ -30,7 +31,6 @@ export default function App() {
   const [query, setQuery] = useState<Query | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [mapError, setMapError] = useState<string | null>(null);
-  const [heroDismissed, setHeroDismissed] = useState(false);
   const today = todayISO();
 
   const { shown, dropped } = useMemo(() => {
@@ -53,12 +53,7 @@ export default function App() {
     return { shown: EVENTS.filter(chip).sort(byStartSoonest), dropped: [] as string[] };
   }, [filter, query, today]);
 
-  /* Top match for the hero panel. Null when nothing is being searched, when
-     nothing matched, or once the reader has closed it. */
-  const heroPick = query !== null && !heroDismissed && shown.length > 0 ? shown[0] : null;
-
   const pinned = shown.filter((e) => isPinnable(e.id));
-  const offMap = shown.filter((e) => !isPinnable(e.id));
   const selected = shown.find((e) => e.id === selectedId) ?? null;
   const understood = query ? describe(query) : [];
 
@@ -71,16 +66,22 @@ export default function App() {
    * the speaker. The top match appears beside the field instead.
    */
   const onAsk = (utterance: string) => {
+    /* First result of a session brings the map into view. Only the first:
+       the field keeps running searches as more words arrive, and re-scrolling
+       on every one would fight the speaker. Focus stays in the field, so
+       dictation continues to land even once it is above the fold. */
+    const firstOfSession = query === null;
     setQuery(parse(utterance, EVENTS));
     setFilter("All");
     setSelectedId(null);
-    setHeroDismissed(false);
+    if (firstOfSession) {
+      document.getElementById("map")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   const clearQuery = () => {
     setQuery(null);
     setSelectedId(null);
-    setHeroDismissed(false);
   };
 
   return (
@@ -140,20 +141,8 @@ export default function App() {
               </p>
             </div>
 
-            {/* Right-hand panel: while a search is running it shows the top
-                match, so talking produces an answer in place. Derived from
-                the query rather than assigned in an effect. */}
             <div className="hero__preview">
-              {heroPick ? (
-                <EventDetail
-                  key={heroPick.id}
-                  event={heroPick}
-                  today={today}
-                  onClose={() => setHeroDismissed(true)}
-                />
-              ) : (
-                <Tonight />
-              )}
+              <Tonight />
             </div>
           </div>
         </section>
@@ -244,30 +233,13 @@ export default function App() {
                     onClose={() => setSelectedId(null)}
                   />
                 ) : (
-                  <Panel className="offmap">
-                    <p className="offmap__head label">
-                      {pinned.length} pinned · {offMap.length} not placeable
-                    </p>
-                    <p className="offmap__hint">
-                      Click a pin for the full listing, and to search live pages about it.
-                    </p>
-                    {shown.length === 0 ? (
-                      <p className="offmap__empty">
-                        Nothing in this window matches{" "}
-                        <strong>{query ? `“${query.text}”` : filter}</strong>.
-                      </p>
-                    ) : null}
-                    {offMap.length > 0 ? (
-                      <ul className="offmap__list">
-                        {offMap.map((e) => (
-                          <li key={e.id} className="offmap__row">
-                            <p className="offmap__title">{e.title}</p>
-                            <p className="offmap__why">{offMapReason(e)}</p>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
-                  </Panel>
+                  <ResultsPanel
+                    events={shown}
+                    queryText={query?.text ?? null}
+                    selectedId={selectedId}
+                    onSelect={setSelectedId}
+                    today={today}
+                  />
                 )}
               </div>
             </div>

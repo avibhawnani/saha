@@ -1,0 +1,118 @@
+.results {
+  display: flex;
+  flex-direction: column;
+  max-height: clamp(420px, 56vh, 620px);
+  border: 1px solid var(--edge);
+  border-radius: var(--r-xl);
+  background: var(--surface);
+  box-shadow: var(--glass-sheen), var(--shadow-md);
+  overflow: hidden;
+}
+
+.results__head {
+  flex: none;
+  padding: var(--s-5) var(--s-5) var(--s-4);
+  border-bottom: 1px solid var(--edge);
+}
+
+.results__count {
+  font-size: var(--t-h3);
+  font-weight: 600;
+  letter-spacing: var(--track-h2);
+}
+
+.results__sub {
+  margin-top: 2px;
+}
+
+.results__query {
+  margin-top: var(--s-3);
+  font-size: var(--t-xs);
+  font-style: italic;
+  color: var(--ink-mid);
+}
+
+.results__empty {
+  padding: var(--s-6) var(--s-5);
+  font-size: var(--t-sm);
+  color: var(--ink-mid);
+}
+
+/* The rail scrolls on its own so the map beside it stays put. */
+.results__list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  margin: 0;
+  padding: var(--s-2);
+  list-style: none;
+}
+
+.result {
+  display: grid;
+  gap: 3px;
+  width: 100%;
+  padding: var(--s-3);
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  background: none;
+  text-align: left;
+  transition:
+    background var(--fast) var(--ease),
+    border-color var(--fast) var(--ease);
+}
+
+.result:hover {
+  background: var(--bone);
+}
+
+.result--on {
+  border-color: color-mix(in oklab, var(--saffron) 44%, transparent);
+  background: var(--saffron-wash);
+}
+
+.result__when {
+  font-size: var(--t-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--clay);
+}
+
+.result__title {
+  font-size: var(--t-sm);
+  font-weight: 600;
+  line-height: var(--lead-snug);
+}
+
+.result__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+  font-size: var(--t-xs);
+  color: var(--ink-mid);
+}
+
+.result__cat {
+  padding: 0 5px;
+  border-radius: var(--r-xs);
+  background: var(--bone-sunk);
+  font-size: var(--t-label);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-low);
+}
+
+.result__free {
+  font-weight: 600;
+  color: var(--jade);
+}
+
+/* Why this one has no pin, said inline rather than left to be noticed. */
+.result__why {
+  font-size: var(--t-label);
+  font-style: italic;
+  color: var(--ink-ghost);
+}
